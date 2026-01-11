@@ -76,7 +76,7 @@ const ApexFirmLandingPage = () => {
                                 Strategic Investments in <span className="text-blue-600">East Africa's</span> Growth
                             </h1>
                             <p className="text-gray-600 text-lg mt-6 mb-8 max-w-lg">
-                                Apex Firm is a premier hedge fund based in Kigali, Rwanda, delivering exceptional returns through innovative investment strategies in emerging African markets.
+                                Apex Firm is a premier hedge fund based in George Town, Cayman Islands, delivering exceptional returns through innovative investment strategies in emerging African markets.
                             </p>
                             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                                 <button className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all">
@@ -133,7 +133,7 @@ const ApexFirmLandingPage = () => {
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Apex Firm?</h2>
                         <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                            With our headquarters in Kigali, Rwanda, we leverage local expertise and global financial strategies to capitalize on Africa's growth potential.
+                            With our headquarters in George Town, Cayman Islands, we leverage local expertise and global financial strategies to capitalize on Africa's growth potential.
                         </p>
                     </div>
 
@@ -331,7 +331,7 @@ const ApexFirmLandingPage = () => {
                         <div className="text-center mb-12">
                             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Connect With Us</h2>
                             <p className="text-gray-600 text-lg">
-                                Interested in learning more about investment opportunities with Apex Firm? Reach out to our team in Kigali.
+                                Interested in learning more about investment opportunities with Apex Firm? Reach out to our team in George Town.
                             </p>
                         </div>
 
@@ -350,8 +350,8 @@ const ApexFirmLandingPage = () => {
                                             </div>
                                             <div>
                                                 <h4 className="font-bold text-gray-900">Our Headquarters</h4>
-                                                <p className="text-gray-600">Kigali Heights, KG 7 Ave</p>
-                                                <p className="text-gray-600">Kigali, Rwanda</p>
+                                                <p className="text-gray-600">Ugland House, South Church St</p>
+                                                <p className="text-gray-600">George Town, Cayman Islands</p>
                                             </div>
                                         </div>
 
@@ -467,7 +467,7 @@ const ApexFirmLandingPage = () => {
 
                     <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
                         <p>&copy; {new Date().getFullYear()} Apex Firm. All rights reserved.</p>
-                        <p className="mt-2">Kigali, Rwanda | Registered with Rwanda Capital Market Authority</p>
+                        <p className="mt-2">George Town, Cayman Islands | Registered with Cayman Islands Monetary Authority</p>
                         <p className="mt-2 text-xs">This website is for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities.</p>
                     </div>
                 </div>
