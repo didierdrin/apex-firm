@@ -17,7 +17,7 @@ const ApexFirmLandingPage = () => {
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
+                            <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center pt-2">
                                 <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
                             </div>
                             <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">Apex Firm</span>
