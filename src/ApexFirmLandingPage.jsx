@@ -17,8 +17,8 @@ const ApexFirmLandingPage = () => {
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <div className="w-15 h-15 bg-transparent rounded-lg flex items-center justify-center">
-                                <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-15 h-15" />
+                            <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
+                                <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
                             </div>
                             <span className="text-2xl font-bold text-gray-900">Apex Firm</span>
                         </div>
@@ -434,7 +434,7 @@ const ApexFirmLandingPage = () => {
                         <div className="mb-8 md:mb-0">
                             <div className="flex items-center space-x-2 mb-4">
                                 <div className="w-15 h-15 bg-transparent rounded-lg flex items-center justify-center">
-                                    <span className="text-white font-bold text-xl">AF</span>
+                                    <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
                                 </div>
                                 <span className="text-2xl font-bold">Apex Firm</span>
                             </div>
