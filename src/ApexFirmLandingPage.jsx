@@ -17,8 +17,8 @@ const ApexFirmLandingPage = () => {
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
-                                <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
+                            <div className="w-15 h-15 bg-transparent rounded-lg flex items-center justify-center">
+                                <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-15 h-15" />
                             </div>
                             <span className="text-2xl font-bold text-gray-900">Apex Firm</span>
                         </div>
@@ -172,6 +172,44 @@ const ApexFirmLandingPage = () => {
                             <p className="text-gray-600">
                                 Investing in sectors that drive sustainable economic development while delivering strong returns to our investors.
                             </p>
+                        </div>
+                    </div>
+
+                    {/* Team Section */}
+                    <div className="mt-16">
+                        <div className="text-center mb-12">
+                            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Leadership Team</h3>
+                            <p className="text-gray-600 max-w-xl mx-auto">
+                                Meet the experienced professionals driving Apex Firm's success in East African markets.
+                            </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center">
+                                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <h4 className="text-xl font-bold text-gray-900 mb-2">Robert Mutake</h4>
+                                <p className="text-blue-600 font-medium mb-4">Chief Executive Officer</p>
+                                <p className="text-gray-600 text-sm">
+                                    Leading strategic vision and investment decisions with extensive experience in African financial markets.
+                                </p>
+                            </div>
+
+                            <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 text-center">
+                                <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                                    <svg className="w-10 h-10 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                </div>
+                                <h4 className="text-xl font-bold text-gray-900 mb-2">Didier Nsengiyumva</h4>
+                                <p className="text-indigo-600 font-medium mb-4">Chief Technology Officer</p>
+                                <p className="text-gray-600 text-sm">
+                                    Driving technological innovation and quantitative strategies with expertise in fintech and data analytics.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -395,7 +433,7 @@ const ApexFirmLandingPage = () => {
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <div className="mb-8 md:mb-0">
                             <div className="flex items-center space-x-2 mb-4">
-                                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                <div className="w-15 h-15 bg-transparent rounded-lg flex items-center justify-center">
                                     <span className="text-white font-bold text-xl">AF</span>
                                 </div>
                                 <span className="text-2xl font-bold">Apex Firm</span>
