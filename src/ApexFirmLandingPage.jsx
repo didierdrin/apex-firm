@@ -17,7 +17,7 @@ const ApexFirmLandingPage = () => {
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
-                            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-indigo-800 rounded-lg flex items-center justify-center">
+                            <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
                                 <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-6 h-6" />
                             </div>
                             <span className="text-2xl font-bold text-gray-900">Apex Firm</span>
@@ -268,7 +268,7 @@ const ApexFirmLandingPage = () => {
                                 <div className="text-blue-200">Sharpe Ratio</div>
                             </div>
                             <div className="text-center">
-                                <div className="text-4xl md:text-5xl font-bold mb-2">142%</div>
+                                <div className="text-4xl md:text-5xl font-bold mb-2">32%</div>
                                 <div className="text-blue-200">5-Year Cumulative Return</div>
                             </div>
                             <div className="text-center">
