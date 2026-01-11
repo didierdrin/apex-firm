@@ -32,11 +32,11 @@ const ApexFirmLandingPage = () => {
                             <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
                         </div>
 
-                        <div className="hidden md:block">
+                        {/* <div className="hidden md:block">
                             <button className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-all">
                                 Investor Login
                             </button>
-                        </div>
+                        </div> */}
 
                         {/* Mobile Menu Button */}
                         <button
@@ -88,7 +88,7 @@ const ApexFirmLandingPage = () => {
                             </div>
                         </div>
                         <div className="md:w-1/2 relative">
-                            <div className="bg-gradient-to-br from-blue-500 to-indigo-700 rounded-2xl p-1 shadow-2xl">
+                            <div className="bg-gradient-to-br from-blue-500 to-indigo-700 rounded-2xl p-1 shadow-2xl ml-4">
                                 <div className="bg-white rounded-2xl p-8">
                                     <div className="flex justify-between items-center mb-6">
                                         <h3 className="text-xl font-bold text-gray-800">Portfolio Performance</h3>
