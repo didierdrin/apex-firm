@@ -178,7 +178,7 @@ const ApexFirmLandingPage = () => {
                     {/* Team Section */}
                     <div className="mt-16">
                         <div className="text-center mb-12">
-                            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Leadership Team</h3>
+                            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Team</h3>
                             <p className="text-gray-600 max-w-xl mx-auto">
                                 Meet the experienced professionals driving Apex Firm's success in East African markets.
                             </p>
