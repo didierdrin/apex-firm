@@ -20,7 +20,7 @@ const ApexFirmLandingPage = () => {
                             <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
                                 <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
                             </div>
-                            <span className="text-2xl font-bold text-gray-900">Apex Firm</span>
+                            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">Apex Firm</span>
                         </div>
 
                         {/* Desktop Menu */}
