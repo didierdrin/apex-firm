@@ -307,7 +307,7 @@ const ApexFirmLandingPage = () => {
                             </div>
                             <div className="text-center">
                                 <div className="text-4xl md:text-5xl font-bold mb-2">32%</div>
-                                <div className="text-blue-200">5-Year Cumulative Return</div>
+                                <div className="text-blue-200">1-Year Cumulative Return</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-4xl md:text-5xl font-bold mb-2">$5M</div>
