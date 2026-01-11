@@ -18,7 +18,7 @@ const ApexFirmLandingPage = () => {
                     <div className="flex justify-between items-center">
                         <div className="flex items-center space-x-2">
                             <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
-                                <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-6 h-6" />
+                                <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
                             </div>
                             <span className="text-2xl font-bold text-gray-900">Apex Firm</span>
                         </div>
