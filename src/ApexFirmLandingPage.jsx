@@ -363,8 +363,8 @@ const ApexFirmLandingPage = () => {
                                             </div>
                                             <div>
                                                 <h4 className="font-bold text-gray-900">Contact Information</h4>
-                                                <p className="text-gray-600">+250 788 123 456</p>
-                                                <p className="text-gray-600">info@apexfirm.rw</p>
+                                                <p className="text-gray-600">+250 787 905 525</p>
+                                                <p className="text-gray-600">robertmutake12@gmail.com</p>
                                             </div>
                                         </div>
                                     </div>
@@ -477,3 +477,6 @@ const ApexFirmLandingPage = () => {
 };
 
 export default ApexFirmLandingPage;
+
+// robertmutake12@gmail.com 
+// 525
