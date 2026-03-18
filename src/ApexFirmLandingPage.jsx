@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import LiveSignalsTicker from './LiveSignalsTicker';
+import SignalSnackbar from './SignalSnackbar';
 
 const ApexFirmLandingPage = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -29,6 +31,7 @@ const ApexFirmLandingPage = () => {
                             <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition">About</a>
                             <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition">Services</a>
                             <a href="#performance" className="text-gray-700 hover:text-blue-600 font-medium transition">Performance</a>
+                            <a href="#signals" className="text-gray-700 hover:text-blue-600 font-medium transition">Live Signals</a>
                             <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
                         </div>
 
@@ -57,6 +60,7 @@ const ApexFirmLandingPage = () => {
                                 <a href="#about" className="text-gray-700 hover:text-blue-600 font-medium transition">About</a>
                                 <a href="#services" className="text-gray-700 hover:text-blue-600 font-medium transition">Services</a>
                                 <a href="#performance" className="text-gray-700 hover:text-blue-600 font-medium transition">Performance</a>
+                                <a href="#signals" className="text-gray-700 hover:text-blue-600 font-medium transition">Live Signals</a>
                                 <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
                                 <button className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white px-6 py-3 rounded-lg font-medium w-full">
                                     Investor Login
@@ -66,6 +70,8 @@ const ApexFirmLandingPage = () => {
                     )}
                 </div>
             </nav>
+
+            <SignalSnackbar />
 
             {/* Hero Section */}
             <section id="home" className="py-16 md:py-24 bg-gradient-to-r from-blue-50/50 to-indigo-50/50">
@@ -323,6 +329,8 @@ const ApexFirmLandingPage = () => {
                     </div>
                 </div>
             </section>
+
+            <LiveSignalsTicker />
 
             {/* Contact Section */}
             <section id="contact" className="py-16 md:py-24 bg-gradient-to-r from-blue-50/50 to-indigo-50/50">
