@@ -1,17 +1,7 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/alerts",
-      "destination": "https://fib-trading-bot.onrender.com/api/alerts"
+  "functions": {
+    "api/alerts.js": {
+      "maxDuration": 30
     }
-  ],
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" }
-      ]
-    }
-  ]
+  }
 }

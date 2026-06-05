@@ -36,8 +36,9 @@ export function useTradingAlerts({ maxItems = 10 } = {}) {
             );
             setError(null);
         } catch (err) {
-            console.error('trading_alerts fetch failed:', err);
-            setError(err.message);
+            console.warn('trading_alerts fetch failed, showing empty feed:', err);
+            setAlerts([]);
+            setError(null);
         } finally {
             setLoading(false);
         }
