@@ -8,7 +8,11 @@ const SignalSnackbar = () => {
     const isBuy = signal ? isBuyType(signal.type) : false;
 
     return (
-        <div className="w-full bg-gray-950 border-b border-white/5 px-4 py-2">
+        <a
+            href="#signals"
+            aria-label="Go to Live Signals"
+            className="block w-full bg-gray-950 border-b border-white/5 px-4 py-2 hover:bg-gray-900 transition-colors cursor-pointer no-underline"
+        >
             <div className="container mx-auto flex items-center justify-center gap-3 text-sm">
                 {loading ? (
                     <div className="flex items-center gap-2 text-gray-500">
@@ -32,18 +36,18 @@ const SignalSnackbar = () => {
                         <span className={`text-xs ${signal.confidence === 'HIGH' ? 'text-yellow-400' : 'text-blue-400'}`}>
                             {signal.confidence}
                         </span>
-                        <a href="#signals" className="ml-2 text-xs text-blue-400 hover:text-blue-300 underline underline-offset-2 transition">
+                        <span className="ml-2 text-xs text-blue-400 underline underline-offset-2">
                             View all →
-                        </a>
+                        </span>
                     </>
                 ) : (
                     <span className="flex items-center gap-2 text-gray-500 text-xs">
                         <span className="w-1.5 h-1.5 bg-gray-600 rounded-full" />
-                        No signals yet — bot is monitoring markets
+                        No signals yet — bot is monitoring markets · View Live Signals →
                     </span>
                 )}
             </div>
-        </div>
+        </a>
     );
 };
 
