@@ -1,44 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
-import { db } from './firebase';
-
-const SESSION_LABELS = {
-    asia: 'Asian Session',
-    london: 'London Session',
-    newyork: 'New York Session',
-    off_hours: 'Off Hours',
-};
-
-const SYMBOL_LABELS = {
-    'GBPJPY=X': 'GBP/JPY',
-    'XAUUSD=X': 'XAU/USD',
-    'USDCAD=X': 'USD/CAD',
-    'BTC-USD': 'BTC/USD',
-    'EURUSD=X': 'EUR/USD',
-    'GBPUSD=X': 'GBP/USD',
-    'USDJPY=X': 'USD/JPY',
-};
+import React from 'react';
+import { useTradingAlerts } from './useTradingAlerts';
+import {
+    SYMBOL_LABELS,
+    SESSION_LABELS,
+    parseAlertTimestamp,
+    isBuyType,
+    formatSignalLabel,
+} from './alertUtils';
 
 const LiveSignalsTicker = () => {
-    const [signals, setSignals] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const q = query(
-            collection(db, 'trading_alerts'),
-            orderBy('timestamp', 'desc'),
-            limit(10)
-        );
-
-        const unsub = onSnapshot(q, (snap) => {
-            setSignals(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-            setLoading(false);
-        });
-
-        return () => unsub();
-    }, []);
-
+    const { alerts: signals, loading } = useTradingAlerts({ maxItems: 10 });
     const latestSignal = signals[0];
+    const latestTime = latestSignal ? parseAlertTimestamp(latestSignal.timestamp) ?? (latestSignal.timestamp_ms ? new Date(latestSignal.timestamp_ms) : null) : null;
 
     return (
         <section id="signals" className="py-16 md:py-24 bg-gray-950">
@@ -54,13 +27,12 @@ const LiveSignalsTicker = () => {
                     </p>
                 </div>
 
-                {/* Latest Signal Hero Card */}
                 {loading ? (
                     <div className="flex justify-center items-center h-40">
                         <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
                     </div>
                 ) : latestSignal ? (
-                    <div className={`max-w-2xl mx-auto mb-10 rounded-2xl p-6 border ${latestSignal.type === 'BUY' ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
+                    <div className={`max-w-2xl mx-auto mb-10 rounded-2xl p-6 border ${isBuyType(latestSignal.type) ? 'bg-green-500/10 border-green-500/30' : 'bg-red-500/10 border-red-500/30'}`}>
                         <div className="flex items-center justify-between mb-4">
                             <span className="text-gray-400 text-sm">Latest Signal</span>
                             <span className={`text-xs font-bold px-3 py-1 rounded-full ${latestSignal.confidence === 'HIGH' ? 'bg-yellow-400/20 text-yellow-300' : 'bg-blue-400/20 text-blue-300'}`}>
@@ -68,12 +40,12 @@ const LiveSignalsTicker = () => {
                             </span>
                         </div>
                         <div className="flex items-center gap-4">
-                            <span className={`text-4xl font-black ${latestSignal.type === 'BUY' ? 'text-green-400' : 'text-red-400'}`}>
+                            <span className={`text-4xl font-black ${isBuyType(latestSignal.type) ? 'text-green-400' : 'text-red-400'}`}>
                                 {latestSignal.type}
                             </span>
                             <div>
                                 <p className="text-white text-2xl font-bold">{SYMBOL_LABELS[latestSignal.symbol] || latestSignal.symbol}</p>
-                                <p className="text-gray-400 text-sm">{latestSignal.signal?.replace('15m_', '15m ').toUpperCase()} · {SESSION_LABELS[latestSignal.session] || latestSignal.session}</p>
+                                <p className="text-gray-400 text-sm">{formatSignalLabel(latestSignal.signal)} · {SESSION_LABELS[latestSignal.session] || latestSignal.session}</p>
                             </div>
                             <div className="ml-auto text-right">
                                 <p className="text-white font-mono text-lg">{Number(latestSignal.price).toFixed(4)}</p>
@@ -82,50 +54,62 @@ const LiveSignalsTicker = () => {
                         </div>
                         <div className="mt-4 grid grid-cols-3 gap-3 text-center">
                             <div className="bg-white/5 rounded-lg p-2">
-                                <p className="text-gray-400 text-xs">Fib 61.8%</p>
-                                <p className="text-white font-mono text-sm">{Number(latestSignal.fib_level).toFixed(4)}</p>
+                                <p className="text-gray-400 text-xs">Z-Score</p>
+                                <p className="text-white font-mono text-sm">
+                                    {latestSignal.zscore != null ? Number(latestSignal.zscore).toFixed(3) : '—'}
+                                </p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
                                 <p className="text-gray-400 text-xs">SMA 50</p>
-                                <p className="text-white font-mono text-sm">{Number(latestSignal.sma50).toFixed(4)}</p>
+                                <p className="text-white font-mono text-sm">
+                                    {latestSignal.sma50 != null ? Number(latestSignal.sma50).toFixed(4) : '—'}
+                                </p>
                             </div>
                             <div className="bg-white/5 rounded-lg p-2">
                                 <p className="text-gray-400 text-xs">SMA 200</p>
-                                <p className="text-white font-mono text-sm">{Number(latestSignal.sma200).toFixed(4)}</p>
+                                <p className="text-white font-mono text-sm">
+                                    {latestSignal.sma200 != null ? Number(latestSignal.sma200).toFixed(4) : '—'}
+                                </p>
                             </div>
                         </div>
-                        <p className="text-gray-600 text-xs mt-3 text-right">
-                            {new Date(latestSignal.timestamp).toLocaleString()}
-                        </p>
+                        {latestTime && (
+                            <p className="text-gray-600 text-xs mt-3 text-right">
+                                {latestTime.toLocaleString()}
+                            </p>
+                        )}
                     </div>
                 ) : (
                     <p className="text-center text-gray-500 mb-10">No signals yet. Bot is monitoring markets.</p>
                 )}
 
-                {/* Signal History List */}
                 {signals.length > 1 && (
                     <div className="max-w-2xl mx-auto space-y-3">
                         <p className="text-gray-500 text-xs uppercase tracking-widest mb-2">Recent Signals</p>
-                        {signals.slice(1).map(sig => (
-                            <div key={sig.id} className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3">
-                                <div className="flex items-center gap-3">
-                                    <span className={`text-xs font-bold w-10 text-center py-0.5 rounded ${sig.type === 'BUY' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
-                                        {sig.type}
-                                    </span>
-                                    <div>
-                                        <p className="text-white text-sm font-semibold">{SYMBOL_LABELS[sig.symbol] || sig.symbol}</p>
-                                        <p className="text-gray-500 text-xs">{sig.signal?.replace('15m_', '15m ').toUpperCase()}</p>
+                        {signals.slice(1).map((sig) => {
+                            const sigTime = parseAlertTimestamp(sig.timestamp) ?? (sig.timestamp_ms ? new Date(sig.timestamp_ms) : null);
+                            return (
+                                <div key={sig.id} className="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+                                    <div className="flex items-center gap-3">
+                                        <span className={`text-xs font-bold w-14 text-center py-0.5 rounded ${isBuyType(sig.type) ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                                            {sig.type}
+                                        </span>
+                                        <div>
+                                            <p className="text-white text-sm font-semibold">{SYMBOL_LABELS[sig.symbol] || sig.symbol}</p>
+                                            <p className="text-gray-500 text-xs">{formatSignalLabel(sig.signal)}</p>
+                                        </div>
                                     </div>
+                                    <div className="text-right">
+                                        <p className="text-white font-mono text-sm">{Number(sig.price).toFixed(4)}</p>
+                                        {sigTime && (
+                                            <p className="text-gray-600 text-xs">{sigTime.toLocaleString()}</p>
+                                        )}
+                                    </div>
+                                    <span className={`ml-4 text-xs px-2 py-0.5 rounded-full ${sig.confidence === 'HIGH' ? 'bg-yellow-400/10 text-yellow-400' : 'bg-blue-400/10 text-blue-400'}`}>
+                                        {sig.confidence}
+                                    </span>
                                 </div>
-                                <div className="text-right">
-                                    <p className="text-white font-mono text-sm">{Number(sig.price).toFixed(4)}</p>
-                                    <p className="text-gray-600 text-xs">{new Date(sig.timestamp).toLocaleString()}</p>
-                                </div>
-                                <span className={`ml-4 text-xs px-2 py-0.5 rounded-full ${sig.confidence === 'HIGH' ? 'bg-yellow-400/10 text-yellow-400' : 'bg-blue-400/10 text-blue-400'}`}>
-                                    {sig.confidence}
-                                </span>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </div>

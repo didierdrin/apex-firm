@@ -1,26 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
-import { db } from './firebase';
-
-const SYMBOL_LABELS = {
-    'GBPJPY=X': 'GBP/JPY', 'XAUUSD=X': 'XAU/USD', 'USDCAD=X': 'USD/CAD',
-    'BTC-USD': 'BTC/USD', 'EURUSD=X': 'EUR/USD', 'GBPUSD=X': 'GBP/USD', 'USDJPY=X': 'USD/JPY',
-};
+import React from 'react';
+import { useTradingAlerts } from './useTradingAlerts';
+import { SYMBOL_LABELS, isBuyType } from './alertUtils';
 
 const SignalSnackbar = () => {
-    const [signal, setSignal] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const q = query(collection(db, 'trading_alerts'), orderBy('timestamp', 'desc'), limit(1));
-        const unsub = onSnapshot(q, (snap) => {
-            setSignal(snap.docs[0] ? { id: snap.docs[0].id, ...snap.docs[0].data() } : null);
-            setLoading(false);
-        });
-        return () => unsub();
-    }, []);
-
-    const isBuy = signal?.type === 'BUY';
+    const { alerts, loading } = useTradingAlerts({ maxItems: 1 });
+    const signal = alerts[0] ?? null;
+    const isBuy = signal ? isBuyType(signal.type) : false;
 
     return (
         <div className="w-full bg-gray-950 border-b border-white/5 px-4 py-2">
