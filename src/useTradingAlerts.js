@@ -1,77 +1,47 @@
-import { useEffect, useState } from 'react';
-import { collection, limit, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { db } from './firebase';
+import { useCallback, useEffect, useState } from 'react';
 import { sortAlertsDesc } from './alertUtils';
 
-/**
- * Live trading_alerts feed with fallbacks so legacy docs still appear.
- * Primary: orderBy timestamp_ms (numeric, written by bot).
- * Fallback: orderBy timestamp, then unsorted client sort.
- */
+const ALERTS_API_URL = (
+    process.env.REACT_APP_ALERTS_API_URL || 'https://fib-trading-bot.onrender.com'
+).replace(/\/$/, '');
+
+const POLL_MS = Number(process.env.REACT_APP_ALERTS_POLL_MS || 15000);
+
+export function getAlertsApiUrl() {
+    return ALERTS_API_URL;
+}
+
+/** Poll Neon-backed alerts via bot REST API (/api/alerts). */
 export function useTradingAlerts({ maxItems = 10 } = {}) {
     const [alerts, setAlerts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const col = collection(db, 'trading_alerts');
-        let unsubFallback = null;
-
-        const applyDocs = (docs) => {
-            const items = docs.map((d) => ({ id: d.id, ...d.data() }));
-            setAlerts(sortAlertsDesc(items).slice(0, maxItems));
-            setLoading(false);
+    const fetchAlerts = useCallback(async () => {
+        try {
+            const res = await fetch(`${ALERTS_API_URL}/api/alerts?limit=${maxItems}`, {
+                cache: 'no-store',
+            });
+            if (!res.ok) {
+                throw new Error(`Alerts API ${res.status}`);
+            }
+            const data = await res.json();
+            const items = Array.isArray(data) ? data : [];
+            setAlerts(sortAlertsDesc(items.map((row) => ({ ...row, id: row.id || row.timestamp_ms }))).slice(0, maxItems));
             setError(null);
-        };
-
-        const subscribeFallback = (orderedField) => {
-            if (unsubFallback) unsubFallback();
-            if (orderedField) {
-                const q = query(col, orderBy(orderedField, 'desc'), limit(50));
-                unsubFallback = onSnapshot(
-                    q,
-                    (snap) => applyDocs(snap.docs),
-                    () => subscribeUnordered()
-                );
-            } else {
-                subscribeUnordered();
-            }
-        };
-
-        const subscribeUnordered = () => {
-            if (unsubFallback) unsubFallback();
-            const q = query(col, limit(50));
-            unsubFallback = onSnapshot(
-                q,
-                (snap) => applyDocs(snap.docs),
-                (err) => {
-                    console.error('trading_alerts feed failed:', err);
-                    setError(err.message);
-                    setLoading(false);
-                }
-            );
-        };
-
-        const qPrimary = query(col, orderBy('timestamp_ms', 'desc'), limit(maxItems));
-        const unsubPrimary = onSnapshot(
-            qPrimary,
-            (snap) => applyDocs(snap.docs),
-            (err) => {
-                console.warn('timestamp_ms query failed, trying timestamp:', err);
-                const qTs = query(col, orderBy('timestamp', 'desc'), limit(maxItems));
-                unsubFallback = onSnapshot(
-                    qTs,
-                    (snap) => applyDocs(snap.docs),
-                    () => subscribeFallback(null)
-                );
-            }
-        );
-
-        return () => {
-            unsubPrimary();
-            if (unsubFallback) unsubFallback();
-        };
+        } catch (err) {
+            console.error('trading_alerts fetch failed:', err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
     }, [maxItems]);
 
-    return { alerts, loading, error };
+    useEffect(() => {
+        fetchAlerts();
+        const id = setInterval(fetchAlerts, POLL_MS);
+        return () => clearInterval(id);
+    }, [fetchAlerts]);
+
+    return { alerts, loading, error, refresh: fetchAlerts };
 }
