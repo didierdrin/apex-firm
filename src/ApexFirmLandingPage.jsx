@@ -18,12 +18,16 @@ const ApexFirmLandingPage = () => {
             <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex justify-between items-center">
-                        <div className="flex items-center space-x-2">
+                        <a
+                            href="#home"
+                            aria-label="Go to home"
+                            className="flex items-center space-x-2 no-underline hover:opacity-90 transition-opacity"
+                        >
                             <div className="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center pt-2">
                                 <img src="/apex-firm-logo.png" alt="Apex Firm" className="w-10 h-10" />
                             </div>
-                            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">Apex Firm</span>
-                        </div>
+                            <span className="hidden md:inline text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">Apex Firm</span>
+                        </a>
 
                         {/* Desktop Menu */}
                         <div className="hidden md:flex space-x-10">
