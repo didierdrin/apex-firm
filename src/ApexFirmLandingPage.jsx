@@ -13,7 +13,7 @@ const ApexFirmLandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-sans">
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white font-sans overflow-x-hidden">
             {/* Navigation */}
             <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
                 <div className="container mx-auto px-6 py-4">
@@ -74,10 +74,10 @@ const ApexFirmLandingPage = () => {
             <SignalSnackbar />
 
             {/* Hero Section */}
-            <section id="home" className="py-16 md:py-24 bg-gradient-to-r from-blue-50/50 to-indigo-50/50">
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-col md:flex-row items-center justify-between">
-                        <div className="md:w-1/2 mb-12 md:mb-0">
+            <section id="home" className="py-16 md:py-24 bg-gradient-to-r from-blue-50/50 to-indigo-50/50 overflow-hidden">
+                <div className="container mx-auto px-4 sm:px-6 max-w-full">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="md:w-1/2 w-full min-w-0 mb-12 md:mb-0">
                             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
                                 Strategic Investments in <span className="text-blue-600">East Africa's</span> Growth
                             </h1>
@@ -93,41 +93,41 @@ const ApexFirmLandingPage = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className="md:w-1/2 relative">
-                            <div className="bg-gradient-to-br from-blue-500 to-indigo-700 rounded-2xl p-1 shadow-2xl ml-4">
-                                <div className="bg-white rounded-2xl p-8">
-                                    <div className="flex justify-between items-center mb-6">
-                                        <h3 className="text-xl font-bold text-gray-800">Portfolio Performance</h3>
-                                        <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">+24.7% YTD</span>
+                        <div className="md:w-1/2 w-full min-w-0 max-w-full relative">
+                            <div className="bg-gradient-to-br from-blue-500 to-indigo-700 rounded-2xl p-1 shadow-2xl md:ml-4 overflow-hidden">
+                                <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8">
+                                    <div className="flex flex-wrap justify-between items-center gap-2 mb-4 sm:mb-6">
+                                        <h3 className="text-lg sm:text-xl font-bold text-gray-800">Portfolio Performance</h3>
+                                        <span className="bg-green-100 text-green-800 px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium shrink-0">+24.7% YTD</span>
                                     </div>
-                                    <div className="h-64 bg-gradient-to-b from-blue-50 to-white rounded-xl p-4">
+                                    <div className="h-52 sm:h-64 bg-gradient-to-b from-blue-50 to-white rounded-xl p-2 sm:p-4 overflow-hidden">
                                         {/* Chart Placeholder */}
-                                        <div className="flex items-end h-40 space-x-2 mt-4">
+                                        <div className="flex items-end h-32 sm:h-40 gap-1 sm:gap-2 mt-2 sm:mt-4 min-w-0 w-full">
                                             {[40, 65, 80, 60, 90, 75, 100, 85, 70, 95].map((height, index) => (
-                                                <div key={index} className="flex-1 flex flex-col items-center">
+                                                <div key={index} className="flex-1 min-w-0 flex flex-col items-center">
                                                     <div
-                                                        className="w-6 md:w-8 bg-gradient-to-t from-blue-500 to-blue-300 rounded-t-lg"
+                                                        className="w-full max-w-[1.25rem] sm:max-w-[1.5rem] md:max-w-[2rem] bg-gradient-to-t from-blue-500 to-blue-300 rounded-t-lg"
                                                         style={{ height: `${height}%` }}
                                                     ></div>
-                                                    <span className="text-xs text-gray-500 mt-2">Q{index + 1}</span>
+                                                    <span className="text-[10px] sm:text-xs text-gray-500 mt-1 sm:mt-2 truncate w-full text-center">Q{index + 1}</span>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
-                                    <div className="mt-6 grid grid-cols-2 gap-4">
-                                        <div className="text-center p-4 bg-blue-50 rounded-lg">
-                                            <p className="text-sm text-gray-600">5-Year Return</p>
-                                            <p className="text-2xl font-bold text-gray-900">+142%</p>
+                                    <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-2 sm:gap-4">
+                                        <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-lg min-w-0">
+                                            <p className="text-xs sm:text-sm text-gray-600">5-Year Return</p>
+                                            <p className="text-xl sm:text-2xl font-bold text-gray-900">+142%</p>
                                         </div>
-                                        <div className="text-center p-4 bg-indigo-50 rounded-lg">
-                                            <p className="text-sm text-gray-600">Risk Adjusted</p>
-                                            <p className="text-2xl font-bold text-gray-900">1.8 Sharpe</p>
+                                        <div className="text-center p-3 sm:p-4 bg-indigo-50 rounded-lg min-w-0">
+                                            <p className="text-xs sm:text-sm text-gray-600">Risk Adjusted</p>
+                                            <p className="text-xl sm:text-2xl font-bold text-gray-900">1.8 Sharpe</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-yellow-400 rounded-full opacity-20 blur-xl"></div>
-                            <div className="absolute -top-4 -right-4 w-32 h-32 bg-blue-400 rounded-full opacity-20 blur-xl"></div>
+                            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-yellow-400 rounded-full opacity-20 blur-xl pointer-events-none"></div>
+                            <div className="absolute -top-4 -right-4 w-32 h-32 bg-blue-400 rounded-full opacity-20 blur-xl pointer-events-none"></div>
                         </div>
                     </div>
                 </div>
