@@ -1,17 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
 import { sortAlertsDesc } from './alertUtils';
 
-const ALERTS_API_URL = (
-    process.env.REACT_APP_ALERTS_API_URL || 'https://fib-trading-bot.onrender.com'
-).replace(/\/$/, '');
-
 const POLL_MS = Number(process.env.REACT_APP_ALERTS_POLL_MS || 15000);
 
-export function getAlertsApiUrl() {
-    return ALERTS_API_URL;
+/** Direct bot URL for local dev; production uses same-origin Vercel proxy (/api/alerts). */
+const REMOTE_ALERTS_API = (process.env.REACT_APP_ALERTS_API_URL || '').replace(/\/$/, '');
+
+function alertsFetchUrl(limit) {
+    if (REMOTE_ALERTS_API) {
+        return `${REMOTE_ALERTS_API}/api/alerts?limit=${limit}`;
+    }
+    return `/api/alerts?limit=${limit}`;
 }
 
-/** Poll Neon-backed alerts via bot REST API (/api/alerts). */
+export function getAlertsApiUrl() {
+    return REMOTE_ALERTS_API || '(vercel proxy /api/alerts)';
+}
+
+/** Poll Neon-backed alerts via bot REST API. */
 export function useTradingAlerts({ maxItems = 10 } = {}) {
     const [alerts, setAlerts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,15 +25,15 @@ export function useTradingAlerts({ maxItems = 10 } = {}) {
 
     const fetchAlerts = useCallback(async () => {
         try {
-            const res = await fetch(`${ALERTS_API_URL}/api/alerts?limit=${maxItems}`, {
-                cache: 'no-store',
-            });
+            const res = await fetch(alertsFetchUrl(maxItems), { cache: 'no-store' });
             if (!res.ok) {
                 throw new Error(`Alerts API ${res.status}`);
             }
             const data = await res.json();
             const items = Array.isArray(data) ? data : [];
-            setAlerts(sortAlertsDesc(items.map((row) => ({ ...row, id: row.id || row.timestamp_ms }))).slice(0, maxItems));
+            setAlerts(
+                sortAlertsDesc(items.map((row) => ({ ...row, id: row.id || row.timestamp_ms }))).slice(0, maxItems)
+            );
             setError(null);
         } catch (err) {
             console.error('trading_alerts fetch failed:', err);
